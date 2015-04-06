@@ -9,11 +9,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.micromachines.customerservice.service.Customer;
 
 @JsonInclude(Include.NON_NULL)
-public class PaginatedCustomer extends PaginatedResult {
+public class PaginatedCustomers extends PaginatedResult {
 	
 	private List<Customer> customers;
 	
-	public PaginatedCustomer(Page<Customer> page) {
+	public PaginatedCustomers(Page<Customer> page) {
 		super(page);
 		customers = page.getRows();
 	}

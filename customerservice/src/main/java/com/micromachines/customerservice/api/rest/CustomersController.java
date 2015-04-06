@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.micromachines.customerservice.api.rest.pagination.PaginatedCustomer;
+import com.micromachines.customerservice.api.rest.pagination.PaginatedCustomers;
 import com.micromachines.customerservice.service.Customer;
 import com.micromachines.customerservice.service.CustomerService;
 import com.micromachines.customerservice.service.Views;
@@ -46,8 +46,8 @@ public class CustomersController {
 	
 	@JsonView(Views.Public.class)
 	@RequestMapping(value="/customers/")
-	public PaginatedCustomer getCustomers(@RequestParam(required=false) String key) {
-		return new PaginatedCustomer(customerService.getPaginatedCustomers("micromachines", key));
+	public PaginatedCustomers getCustomers(@RequestParam(required=false) String key) {
+		return new PaginatedCustomers(customerService.getPaginatedCustomers("micromachines", key));
 	}
 	
 	@JsonView(Views.Public.class)
