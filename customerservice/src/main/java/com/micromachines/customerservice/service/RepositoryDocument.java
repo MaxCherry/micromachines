@@ -4,12 +4,14 @@ import java.util.Map;
 
 import org.ektorp.Attachment;
 import org.ektorp.support.CouchDbDocument;
-import org.ektorp.support.TypeDiscriminator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 abstract class RepositoryDocument extends CouchDbDocument {
+	
+	
+	private static final long serialVersionUID = 1L;
 	
 	@JsonView(Views.Internal.class)
 	private String type = getClass().getSimpleName();

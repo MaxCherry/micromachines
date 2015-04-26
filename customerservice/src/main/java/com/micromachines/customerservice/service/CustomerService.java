@@ -2,8 +2,6 @@ package com.micromachines.customerservice.service;
 
 import java.util.List;
 
-import org.ektorp.Page;
-
 
 public interface CustomerService {
 

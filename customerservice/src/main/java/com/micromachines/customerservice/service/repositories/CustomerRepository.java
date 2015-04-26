@@ -15,7 +15,7 @@ import com.micromachines.customerservice.service.Customer;
 
 public class CustomerRepository extends CouchDbRepositorySupport<Customer>{
 
-	private static final int MAX_RESULT = 2;
+	private static final int MAX_RESULT = 20;
 
 	CustomerRepository(CouchDbConnector db) {
 		super(Customer.class, db);
@@ -40,7 +40,7 @@ public class CustomerRepository extends CouchDbRepositorySupport<Customer>{
 	
 
 	@View( name = "by_creationDate", map = "function(doc) { emit(doc.creationDate, null);}")
-	public Page<Customer> getPaginatedCustomers(String key) {
+	public com.micromachines.customerservice.service.Page<Customer> getPaginatedCustomers(String key) {
 		PageRequest pageRequest;
 		if(!StringUtils.isEmpty(key)) {
 			pageRequest = PageRequest.fromLink(key);
@@ -51,7 +51,10 @@ public class CustomerRepository extends CouchDbRepositorySupport<Customer>{
 			.designDocId("_design/Customer")
 			.viewName("by_creationDate")
 			.includeDocs(true);
-		return db.queryForPage(query, pageRequest, Customer.class);
+		
+		Page<Customer> customerPage = db.queryForPage(query, pageRequest, Customer.class);
+		return new com.micromachines.customerservice.service.Page<Customer>(customerPage);
+		
 	}
 	
 	

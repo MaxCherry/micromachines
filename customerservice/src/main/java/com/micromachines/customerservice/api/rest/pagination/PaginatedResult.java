@@ -2,6 +2,7 @@ package com.micromachines.customerservice.api.rest.pagination;
 
 import org.ektorp.Page;
 
+
 public abstract class PaginatedResult {
 	
 	private String keyNext;

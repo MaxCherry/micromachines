@@ -2,12 +2,12 @@ package com.micromachines.customerservice.service.repositories.couch;
 
 import java.util.List;
 
-import org.ektorp.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.micromachines.customerservice.service.Customer;
 import com.micromachines.customerservice.service.CustomerService;
+import com.micromachines.customerservice.service.Page;
 import com.micromachines.customerservice.service.repositories.Repository;
 
 @Component
