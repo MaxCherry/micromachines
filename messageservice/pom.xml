@@ -3,24 +3,23 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.micromachines.samples</groupId>
-	<artifactId>customerservice</artifactId>
+	<groupId>com.mircomachines</groupId>
+	<artifactId>messageservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>Customer Management</name>
-	<description>Sample Customer Management Service</description>
+	<name>messageservice</name>
+	<description>Email and SMS Service</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.3.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>1.2.7.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>customerservice.CustomerManagementApplication</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -33,7 +32,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -44,13 +43,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
-			<groupId>org.ektorp</groupId>
-			<artifactId>org.ektorp</artifactId>
-			<version>1.4.2</version>
+     		<groupId>org.springframework.boot</groupId>
+     		<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -59,5 +58,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 
 </project>

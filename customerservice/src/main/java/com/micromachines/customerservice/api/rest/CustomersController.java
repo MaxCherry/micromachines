@@ -26,9 +26,11 @@ import com.micromachines.customerservice.api.rest.pagination.PaginatedCustomers;
 import com.micromachines.customerservice.service.Customer;
 import com.micromachines.customerservice.service.CustomerService;
 import com.micromachines.customerservice.service.Views;
+import com.micromachines.customerservice.service.commands.Commands;
 import com.micromachines.customerservice.service.commands.CreateCustomerCommand;
 
 @RestController
+@RequestMapping("{tenant}/customers")
 public class CustomersController {
 	
 	private final static Logger LOG = LoggerFactory.getLogger(CustomersController.class);
@@ -46,35 +48,34 @@ public class CustomersController {
 	
 	@JsonView(Views.Public.class)
 	@RequestMapping("/customers/{id}")
-	public Customer getCustomer(@PathVariable String id) {
-		return customerService.getCustomer("micromachines", id);
+	public Customer getCustomer(@PathVariable String tenant, @PathVariable String id) {
+		return customerService.getCustomer(tenant, id);
 	}
 	
 	@JsonView(Views.Public.class)
 	@RequestMapping(value="/customers/")
-	public PaginatedCustomers getCustomers(@RequestParam(required=false) String key) {
-		return new PaginatedCustomers(customerService.getPaginatedCustomers("micromachines", key));
+	public PaginatedCustomers getCustomers(@PathVariable String tenant, @RequestParam(required=false) String key) {
+		return new PaginatedCustomers(customerService.getPaginatedCustomers(tenant, key));
 	}
 	
 	@JsonView(Views.Public.class)
 	@RequestMapping(value="/customers/",params={"lastName"})
-	public List<Customer> getFilteredCustomers(@RequestParam String lastName) {
-		return customerService.findCustomersByLastName("micromachines", lastName);
+	public List<Customer> getFilteredCustomers(@PathVariable String tenant, @RequestParam String lastName) {
+		return customerService.findCustomersByLastName(tenant, lastName);
 	}
 	
 	@JsonView(Views.Public.class)
 	@RequestMapping(value="/customers/", method=RequestMethod.POST)
-	public Customer addCustomer(@RequestBody @Valid Customer customer) {
+	public Customer addCustomer(@PathVariable String tenant, @RequestBody @Valid Customer customer) {
 		LOG.debug("Entering CustomersController#addCustomer. {}", customer);
-		return customerService.createCustomer("micromachines", customer);
+		return customerService.createCustomer(tenant, customer);
 	}
 	
 	@JsonView(Views.Public.class)
 	@RequestMapping(value="/customers/", method=RequestMethod.POST, params={"rpc"})
-	public ResponseEntity<?> addCustomerViaQueue(@RequestBody @Valid Customer customer) {
-		CreateCustomerCommand command = new CreateCustomerCommand("micromachines");
-		command.setCustomer(customer);
-		Customer createdCustomer = (Customer) template.convertSendAndReceive("microservices-exchange", "cmd.customer.create", command);
+	public ResponseEntity<?> addCustomerViaQueue(@PathVariable String tenant, @RequestBody @Valid Customer customer) {
+		CreateCustomerCommand command = Commands.createCustomer(tenant, customer);
+		Customer createdCustomer = (Customer) template.convertSendAndReceive("microservices-exchange", command.key(), command);
 		
 		if(createdCustomer == null) {
 			LOG.info("Create customer operation accepted but not yet finished");

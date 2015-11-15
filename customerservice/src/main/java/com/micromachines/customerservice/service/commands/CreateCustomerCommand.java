@@ -10,7 +10,12 @@ public class CreateCustomerCommand extends CustomerCommand {
 	private Customer customer;
 	
 	public CreateCustomerCommand(String tenant) {
+		this(tenant, null);
+	}
+
+	public CreateCustomerCommand(String tenant, Customer customer) {
 		super(tenant);
+		this.customer = customer;
 	}
 
 	public Customer getCustomer() {
@@ -20,6 +25,13 @@ public class CreateCustomerCommand extends CustomerCommand {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	@Override
+	public String key() {
+		return "cmd.customer.create." + getTenant();
+	}
+	
+	
 	
 	
 	

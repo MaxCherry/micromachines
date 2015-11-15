@@ -1,8 +1,8 @@
-package com.micromachines.customerservice.service.commands;
+package com.mircomachines;
 
 import java.io.Serializable;
 
-abstract class Command implements Serializable {
+public abstract class Command implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
